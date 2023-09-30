@@ -15,9 +15,9 @@ import { extractPublicId, uploadImage } from "@utils/helper";
 import {
   createFeaturedProduct,
   updateFeaturedProduct,
-} from "../(admin)/products/featured/action";
+} from "@app/(admin)/products/featured/action";
 import { FeaturedProductForUpdate } from "../types";
-import { removeImageFromCloud } from "../(admin)/products/action";
+import { removeImageFromCloud } from "@app/(admin)/products/action";
 
 export interface FeaturedProduct {
   file?: File;

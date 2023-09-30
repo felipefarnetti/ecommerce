@@ -55,7 +55,7 @@ export const POST = async (request: Request) => {
     return NextResponse.json({ url: checkoutSession.url });
   } catch (error) {
     return NextResponse.json(
-      { error: "Something went wrong ,could not checkout!" },
+      { error: "Something went wrong, could not checkout!" },
       { status: 500 }
     );
   }

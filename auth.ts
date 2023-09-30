@@ -20,6 +20,9 @@ const authConfig: NextAuthConfig = {
         //  success response to this function.
         const signInApiUrl = process.env.SIGNIN_API_URL as string;
 
+        // OR
+        // const signInApiUrl = "/api/users/signin";
+
         const { user, error } = await fetch(signInApiUrl, {
           method: "POST",
           body: JSON.stringify({ email, password }),
