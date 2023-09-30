@@ -18,14 +18,12 @@ const authConfig: NextAuthConfig = {
 
         // send request to your api route where you can sign in your user and send error or
         //  success response to this function.
+        const signInApiUrl = process.env.SIGNIN_API_URL as string;
 
-        const { user, error } = await fetch(
-          "http://localhost:3000/api/users/signin",
-          {
-            method: "POST",
-            body: JSON.stringify({ email, password }),
-          }
-        ).then(async (res) => await res.json());
+        const { user, error } = await fetch(signInApiUrl, {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+        }).then(async (res) => await res.json());
 
         if (error) return null;
         return { id: user.id, ...user };
