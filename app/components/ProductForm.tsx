@@ -16,7 +16,7 @@ import React, {
 import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import categories from "@utils/categories";
 import ImageSelector from "@components/ImageSelector";
-import { NewProductInfo } from "../types";
+import { NewProductInfo } from "@app/types";
 
 interface Props {
   initialValue?: InitialValue;

@@ -13,7 +13,7 @@ import Link from "next/link";
 import truncate from "truncate";
 import { formatPrice } from "@utils/helper";
 import { toast } from "react-toastify";
-import useAuth from "../hooks/useAuth";
+import useAuth from "@hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 

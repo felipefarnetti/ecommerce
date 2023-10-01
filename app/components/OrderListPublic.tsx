@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import dateFormat from "dateformat";
 import { Chip } from "@material-tailwind/react";
-import { formatPrice } from "../utils/helper";
+import { formatPrice } from "@utils/helper";
 
 type product = {
   id: string;

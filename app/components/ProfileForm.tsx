@@ -3,9 +3,9 @@ import React, { useState, useTransition } from "react";
 import { Button, Input } from "@material-tailwind/react";
 import ProfileAvatarInput from "@components/ProfileAvatarInput";
 import { toast } from "react-toastify";
-import { uploadImage } from "../utils/helper";
-import { UpdateUserProfile } from "../(private_route)/profile/action";
-import { UserProfileToUpdate } from "../types";
+import { uploadImage } from "@utils/helper";
+import { UpdateUserProfile } from "@app/(private_route)/profile/action";
+import { UserProfileToUpdate } from "@app/types";
 import { useRouter } from "next/navigation";
 
 interface Props {

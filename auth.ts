@@ -15,15 +15,8 @@ const authConfig: NextAuthConfig = {
       credentials: {},
       async authorize(credentials, request) {
         const { email, password } = credentials as SignInCredentials;
-
-        // send request to your api route where you can sign in your user and send error or
-        //  success response to this function.
-        const signInApiUrl = process.env.SIGNIN_API_URL as string;
-
-        // OR
-        // const signInApiUrl = "/api/users/signin";
-
-        const { user, error } = await fetch(signInApiUrl, {
+        // send request to your api route where you can sign in you user and send error or success response to this function.
+        const { user, error } = await fetch(process.env.API_SIGN_IN_ENDPOINT!, {
           method: "POST",
           body: JSON.stringify({ email, password }),
         }).then(async (res) => await res.json());
@@ -33,18 +26,16 @@ const authConfig: NextAuthConfig = {
       },
     }),
   ],
-
   callbacks: {
     async jwt(params) {
-      // console.log("jwt ------", params);
       if (params.user) {
         params.token = { ...params.token, ...params.user };
       }
       return params.token;
     },
     async session(params) {
-      // console.log("session ------", params);
       const user = params.token as typeof params.token & SessionUserProfile;
+
       if (user) {
         params.session.user = {
           ...params.session.user,
@@ -56,7 +47,6 @@ const authConfig: NextAuthConfig = {
           role: user.role,
         };
       }
-
       return params.session;
     },
   },

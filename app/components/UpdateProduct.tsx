@@ -6,7 +6,7 @@ import {
   removeAndUpdateProductImage,
   removeImageFromCloud,
   updateProduct,
-} from "../(admin)/products/action";
+} from "@app/(admin)/products/action";
 import { updateProductInfoSchema } from "@utils/validationSchema";
 import { ValidationError } from "yup";
 import { toast } from "react-toastify";

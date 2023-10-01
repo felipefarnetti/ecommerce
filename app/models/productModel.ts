@@ -1,5 +1,5 @@
 import { Model, model, models, Schema } from "mongoose";
-import categories from "../utils/categories";
+import categories from "@utils/categories";
 
 export interface NewProduct {
   title: string;

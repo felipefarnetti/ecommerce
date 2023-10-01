@@ -1,4 +1,4 @@
-import startDb from "./db";
+import startDb from "@lib/db";
 import CartModel from "@models/cartModel";
 import { Types } from "mongoose";
 import { CartItems } from "@app/types";

@@ -2,15 +2,14 @@ import { useSession } from "next-auth/react";
 import { SessionUserProfile } from "@app/types";
 
 interface Auth {
-  isAdmin: boolean;
   loading: boolean;
   loggedIn: boolean;
+  isAdmin: boolean;
   profile?: SessionUserProfile | null;
 }
 
-export default function useAuth() {
+export default function useAuth(): Auth {
   const session = useSession();
-  // console.log(session.data?.user);
   const user = session.data?.user;
 
   return {
