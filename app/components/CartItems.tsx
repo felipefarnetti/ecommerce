@@ -29,7 +29,7 @@ const CartItems: React.FC<CartItemsProps> = ({
   totalQty,
   cartTotal,
   cartId,
-}): React.JSX.Element => {
+}) => {
   const [busy, setBusy] = useState(false);
   const router = useRouter();
 
@@ -39,7 +39,9 @@ const CartItems: React.FC<CartItemsProps> = ({
       method: "POST",
       body: JSON.stringify({ cartId }),
     });
+
     const { error, url } = await res.json();
+
     if (!res.ok) {
       toast.error(error);
     } else {

@@ -1,7 +1,7 @@
 "use server";
 
 import startDb from "@lib/db";
-import { UserProfileToUpdate } from "@/app/types";
+import { UserProfileToUpdate } from "@app/types";
 import UserModel from "@models/userModel";
 
 export const UpdateUserProfile = async (info: UserProfileToUpdate) => {

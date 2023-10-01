@@ -20,7 +20,7 @@ interface OrderDocument extends Document {
       line1: string;
       line2?: string | null;
       postal_code: string;
-      state?: string | null;
+      state: string;
     };
     email: string;
     name: string;
@@ -35,11 +35,12 @@ interface OrderDocument extends Document {
     price: number;
     qty: number;
   }[];
+  createdAt: Date;
 }
 
 const orderSchema = new Schema<OrderDocument>(
   {
-    userId: { type: Types.ObjectId, required: true },
+    userId: { type: Types.ObjectId, ref: "User", required: true },
     stripeCustomerId: { type: String, required: true },
     paymentIntent: { type: String, required: true },
     totalAmount: { type: Number, required: true },
@@ -50,7 +51,7 @@ const orderSchema = new Schema<OrderDocument>(
         line1: { type: String, required: true },
         line2: { type: String, default: null },
         postal_code: { type: String, required: true },
-        state: { type: String, default: null },
+        state: { type: String, required: true },
       },
       email: { type: String, required: true },
       name: { type: String, required: true },

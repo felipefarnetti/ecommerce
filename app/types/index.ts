@@ -1,43 +1,41 @@
-import { JSX } from "react";
-
-export type MenuItems = {
+export interface MenuItems {
   href: string;
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   label: string;
-};
+}
 
-export type NewUserRequest = {
+export interface NewUserRequest {
   name: string;
   email: string;
   password: string;
-};
+}
 
-export type SignInCredentials = {
+export interface SignInCredentials {
   email: string;
   password: string;
-};
+}
 
-export type EmailVerifyRequest = {
+export interface EmailVerifyRequest {
   token: string;
   userId: string;
-};
+}
 
-export type ForgetPasswordRequest = {
+export interface ForgetPasswordRequest {
   email: string;
-};
+}
 
-export type UpdatePasswordRequest = {
+export interface UpdatePasswordRequest {
+  password: string;
   token: string;
   userId: string;
-  password: string;
-};
+}
 
 export interface SessionUserProfile {
   id: string;
   name: string;
   email: string;
-  role: "user" | "admin";
   avatar?: string;
+  role: "user" | "admin";
   verified: boolean;
 }
 
@@ -106,13 +104,14 @@ export interface FeaturedProductForUpdate {
   linkTitle: string;
   title: string;
 }
+
 export interface UserProfileToUpdate {
   avatar?: { url: string; id: string };
   name: string;
   id: string;
 }
 
-interface CartProduct {
+export interface CartProduct {
   id: string;
   thumbnail: string;
   title: string;
@@ -126,4 +125,19 @@ export interface CartItems {
   id: string;
   totalQty: number;
   totalPrice: number;
+}
+
+export interface StripeCustomer {
+  metadata: {
+    userId: string;
+    cartId: string;
+    type: "checkout" | "instant-checkout";
+    product: string;
+  };
+}
+
+export interface ReviewRequestBody {
+  productId: string;
+  comment?: string;
+  rating: number;
 }

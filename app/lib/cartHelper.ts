@@ -1,5 +1,4 @@
-import { auth } from "@/auth";
-import startDb from "@lib/db";
+import startDb from "./db";
 import CartModel from "@models/cartModel";
 import { Types } from "mongoose";
 import { CartItems } from "@app/types";
@@ -64,5 +63,6 @@ export const getCartItems = async (
       },
     },
   ]);
+
   return cartItems;
 };

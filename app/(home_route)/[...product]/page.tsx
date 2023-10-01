@@ -1,5 +1,5 @@
-import ProductView from "@app/components/ProductView";
-import ProductModel from "@app/models/productModel";
+import ProductView from "@components/ProductView";
+import ProductModel from "@models/productModel";
 import startDb from "@lib/db";
 import { isValidObjectId } from "mongoose";
 import { redirect } from "next/navigation";

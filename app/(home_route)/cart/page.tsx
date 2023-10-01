@@ -1,15 +1,16 @@
-import startDb from "@lib/db";
 import CartItems from "@components/CartItems";
-import React from "react";
-import { auth } from "@/auth";
+import startDb from "@lib/db";
 import CartModel from "@models/cartModel";
+import { auth } from "@/auth";
 import { Types } from "mongoose";
+import React from "react";
 
 const fetchCartProducts = async () => {
   const session = await auth();
   if (!session?.user) {
     return null;
   }
+
   await startDb();
   const [cartItems] = await CartModel.aggregate([
     { $match: { userId: new Types.ObjectId(session.user.id) } },
@@ -61,11 +62,13 @@ const fetchCartProducts = async () => {
       },
     },
   ]);
+
   return cartItems;
 };
 
 export default async function Cart() {
   const cart = await fetchCartProducts();
+
   if (!cart)
     return (
       <div className="py-4">
@@ -73,15 +76,14 @@ export default async function Cart() {
           <h1 className="text-2xl font-semibold">Your Cart Details</h1>
           <hr />
         </div>
-        <h1 className="text-center font-semibold text-xl opacity-40 py-10">
-          Your cart is empty
+        <h1 className="text-center font-semibold text-2xl opacity-40 py-10">
+          Your cart is empty!
         </h1>
       </div>
     );
 
   return (
     <CartItems
-      {...cart}
       cartTotal={cart.totalPrice}
       cartId={cart.id}
       products={cart.products}

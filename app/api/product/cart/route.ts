@@ -1,37 +1,29 @@
 import startDb from "@lib/db";
-import { auth } from "@/auth";
-import { NextResponse } from "next/server";
 import CartModel from "@models/cartModel";
 import { NewCartRequest } from "@app/types";
+import { auth } from "@/auth";
 import { isValidObjectId } from "mongoose";
+import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
   try {
     const session = await auth();
-
     const user = session?.user;
     if (!user)
       return NextResponse.json(
-        {
-          error: "unauthorized request!",
-        },
+        { error: "unauthorized request!" },
         { status: 401 }
       );
 
     const { productId, quantity } = (await req.json()) as NewCartRequest;
+
     if (!isValidObjectId(productId) || isNaN(quantity))
-      return NextResponse.json(
-        {
-          error: "invalid request!",
-        },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Invalid request!" }, { status: 401 });
 
     await startDb();
-
     const cart = await CartModel.findOne({ userId: user.id });
     if (!cart) {
-      // Creating new cart if there is no old cart
+      // creating new cart if there is no old cart
       await CartModel.create({
         userId: user.id,
         items: [{ productId, quantity }],
@@ -44,7 +36,7 @@ export const POST = async (req: Request) => {
     );
 
     if (existingItem) {
-      // update quantify if item already exists
+      // update quantity if item already exists
       existingItem.quantity += quantity;
       if (existingItem.quantity <= 0) {
         // Remove item (product) if quantity becomes zero
@@ -56,6 +48,7 @@ export const POST = async (req: Request) => {
       // add new item if it doesn't exists
       cart.items.push({ productId: productId as any, quantity });
     }
+
     await cart.save();
 
     return NextResponse.json({ success: true });
