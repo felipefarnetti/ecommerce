@@ -83,13 +83,9 @@ export const POST = async (req: Request) => {
     };
     console.log("params============", params);
 
-    try {
-      const checkoutSession = await stripe.checkout.sessions.create(params);
-      console.log("Checkout Session:", checkoutSession);
-      return NextResponse.json({ url: checkoutSession.url });
-    } catch (error) {
-      console.error("Error creating Checkout Session:", error);
-    }
+    const checkoutSession = await stripe.checkout.sessions.create(params);
+    console.log("Checkout Session:", checkoutSession);
+    return NextResponse.json({ url: checkoutSession.url });
   } catch (error) {
     return NextResponse.json(
       { error: "Something went wrong, could not checkout!" },
