@@ -2,7 +2,7 @@
 import React from "react";
 import FormContainer from "@components/AuthFormContainer";
 import { Button, Input } from "@material-tailwind/react";
-import { useFormik } from "formik";
+import { FormikErrors, useFormik } from "formik";
 import * as yup from "yup";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { formikFilterForm } from "@utils/formikHelpers";
@@ -56,7 +56,19 @@ export default function UpdatePassword({ token, userId }: Props) {
     },
   });
 
-  const errorsToRender = formikFilterForm(errors, touched, values);
+  // Modify the formikFilterForm function or create a new function to transform errors
+  const transformErrors = (
+    errors: FormikErrors<{ password1: string; password2: string }>
+  ) => {
+    const transformedErrors: { [key: string]: boolean } = {};
+    for (const key in errors) {
+      transformedErrors[key] = true; // Set to true if there's an error
+    }
+    return transformedErrors;
+  };
+
+  // Then use the transformed errors in your component
+  const errorsToRender = transformErrors(errors);
 
   type valueKeys = keyof typeof values;
 
@@ -96,7 +108,7 @@ export default function UpdatePassword({ token, userId }: Props) {
         Reset Password
       </Button>
       <div className="">
-        {errorsToRender.map((item) => {
+        {Object.keys(errorsToRender).map((item) => {
           return (
             <div
               key={item}

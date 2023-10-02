@@ -15,6 +15,7 @@ const stripe = new Stripe(stripeSecret, {
 
 export const POST = async (req: Request) => {
   const data = await req.text();
+  console.log("data=========webhook", data);
 
   const signature = req.headers.get("stripe-signature")!;
 
@@ -45,12 +46,14 @@ export const POST = async (req: Request) => {
         customer_details: any;
         payment_status: string;
       };
+      console.log("Received checkout.session.completed event:", stripeSession);
 
       const customer = (await stripe.customers.retrieve(
         stripeSession.customer
       )) as unknown as StripeCustomer;
 
       const { cartId, userId, type, product } = customer.metadata;
+
       // create new order
       if (type === "checkout") {
         const cartItems = await getCartItems(userId, cartId);
@@ -110,6 +113,7 @@ export const POST = async (req: Request) => {
 
     return NextResponse.json({});
   } catch (error) {
+    console.error("Error processing webhook event:", error);
     return NextResponse.json(
       { error: "Something went wrong, can not create order!" },
       { status: 500 }

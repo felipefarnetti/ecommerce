@@ -1,15 +1,23 @@
 "use client";
-
 import { Chip } from "@material-tailwind/react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 import React, { ReactNode, useContext } from "react";
+//@ts-ignore
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import categories from "@utils/categories";
+import categories from "../utils/categories";
 import Link from "next/link";
 import "react-horizontal-scrolling-menu/dist/styles.css";
 
-function LeftArrow() {
-  const { isFirstItemVisible, scrollPrev } = useContext(VisibilityContext);
+interface VisibilityContextType {
+  isFirstItemVisible: boolean;
+  scrollPrev: () => void;
+  isLastItemVisible: boolean;
+  scrollNext: () => void;
+}
+
+export function LeftArrow() {
+  const { isFirstItemVisible, scrollPrev } =
+    useContext<VisibilityContextType>(VisibilityContext);
 
   return (
     <button
@@ -23,8 +31,9 @@ function LeftArrow() {
   );
 }
 
-function RightArrow() {
-  const { isLastItemVisible, scrollNext } = useContext(VisibilityContext);
+export function RightArrow() {
+  const { isLastItemVisible, scrollNext } =
+    useContext<VisibilityContextType>(VisibilityContext);
 
   return (
     <button
@@ -42,19 +51,15 @@ interface Props {
   children: JSX.Element | JSX.Element[];
 }
 
-export default function HorizontalMenu() {
+export default function HorizontalMenu({ children }: Props) {
   return (
     <div>
       <ScrollMenu
+        wrapperClassName="w-full"
         LeftArrow={LeftArrow}
         RightArrow={RightArrow}
-        wrapperClassName="w-full"
       >
-        {categories.map((c) => (
-          <Link key={c} href={`/browse-products/${c}`}>
-            <Chip color="teal" className="mr-2" variant="outlined" value={c} />
-          </Link>
-        ))}
+        {children}
       </ScrollMenu>
     </div>
   );

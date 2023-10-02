@@ -20,7 +20,6 @@ interface OrderDocument extends Document {
       line1: string;
       line2?: string | null;
       postal_code: string;
-      state: string;
     };
     email: string;
     name: string;
@@ -51,7 +50,6 @@ const orderSchema = new Schema<OrderDocument>(
         line1: { type: String, required: true },
         line2: { type: String, default: null },
         postal_code: { type: String, required: true },
-        state: { type: String, required: true },
       },
       email: { type: String, required: true },
       name: { type: String, required: true },

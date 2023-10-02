@@ -8,6 +8,7 @@ export const getCartItems = async (
   cartId: string
 ): Promise<CartItems> => {
   await startDb();
+
   const [cartItems] = await CartModel.aggregate([
     {
       $match: {

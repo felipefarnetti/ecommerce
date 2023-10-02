@@ -20,7 +20,10 @@ export const POST = async (req: Request) => {
       );
 
     const data = await req.json();
+    console.log("data==========", data);
+
     const productId = data.productId as string;
+    console.log("data==========", productId);
 
     if (!isValidObjectId(productId))
       return NextResponse.json(
@@ -66,6 +69,7 @@ export const POST = async (req: Request) => {
         }),
       },
     });
+    console.log("custommer========", customer);
 
     // we need to generate payment link and send to our frontend app
     const params: Stripe.Checkout.SessionCreateParams = {
@@ -77,9 +81,15 @@ export const POST = async (req: Request) => {
       shipping_address_collection: { allowed_countries: ["FR"] },
       customer: customer.id,
     };
+    console.log("params============", params);
 
-    const checkoutSession = await stripe.checkout.sessions.create(params);
-    return NextResponse.json({ url: checkoutSession.url });
+    try {
+      const checkoutSession = await stripe.checkout.sessions.create(params);
+      console.log("Checkout Session:", checkoutSession);
+      return NextResponse.json({ url: checkoutSession.url });
+    } catch (error) {
+      console.error("Error creating Checkout Session:", error);
+    }
   } catch (error) {
     return NextResponse.json(
       { error: "Something went wrong, could not checkout!" },
