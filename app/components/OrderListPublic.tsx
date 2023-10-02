@@ -24,6 +24,10 @@ export interface Orders {
 }
 
 export default function OrderListPublic({ orders }: { orders: Orders[] }) {
+  // Check if there are no orders
+  if (orders.length === 0) {
+    return <h1 className="text-lg p-4">No orders available.</h1>;
+  }
   return (
     <div>
       {orders.map((order) => {
