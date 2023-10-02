@@ -33,6 +33,7 @@ const fetchLatestProducts = async () => {
       thumbnail: product.thumbnail.url,
       price: product.price,
       sale: product.sale,
+      rating: product.rating,
     };
   });
 

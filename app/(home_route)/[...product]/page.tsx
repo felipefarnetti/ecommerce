@@ -1,9 +1,12 @@
 import ProductView from "@components/ProductView";
 import ProductModel from "@models/productModel";
 import startDb from "@lib/db";
-import { isValidObjectId } from "mongoose";
+import { ObjectId, isValidObjectId } from "mongoose";
 import { redirect } from "next/navigation";
 import React from "react";
+import Link from "next/link";
+import ReviewModel from "@/app/models/reviewModel";
+import ReviewsList from "@/app/components/ReviewsList";
 
 interface Props {
   params: {
@@ -27,7 +30,33 @@ const fetchProduct = async (productId: string) => {
     bulletPoints: product.bulletPoints,
     price: product.price,
     sale: product.sale,
+    rating: product.rating,
   });
+};
+
+const fetchProductReviews = async (productId: string) => {
+  await startDb;
+
+  const reviews = await ReviewModel.find({ product: productId }).populate<{
+    userId: { _id: ObjectId; name: string; avatar?: { url: string } };
+  }>({
+    path: "userId",
+    select: "name avatar.url",
+  });
+
+  const result = reviews.map((r) => ({
+    id: r._id.toString(),
+    rating: r.rating,
+    comment: r.comment,
+    date: r.createdAt,
+    userInfo: {
+      id: r.userId._id.toString(),
+      name: r.userId.name,
+      avatar: r.userId.avatar?.url,
+    },
+  }));
+
+  return JSON.stringify(result);
 };
 
 export default async function Product({ params }: Props) {
@@ -39,6 +68,8 @@ export default async function Product({ params }: Props) {
     productImages = productImages.concat(productInfo.images);
   }
 
+  const reviews = await fetchProductReviews(productId);
+
   return (
     <div className="p-4">
       <ProductView
@@ -48,7 +79,16 @@ export default async function Product({ params }: Props) {
         sale={productInfo.sale}
         points={productInfo.bulletPoints}
         images={productImages}
+        rating={productInfo.rating}
       />
+
+      <div className="py-4 space-y-4">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-semibold mb-2">Reviews</h1>
+          <Link href={`/add-review/${productInfo.id}`}>Add Review</Link>
+        </div>
+        <ReviewsList reviews={JSON.parse(reviews)} />
+      </div>
     </div>
   );
 }
