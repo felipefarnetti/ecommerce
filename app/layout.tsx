@@ -5,6 +5,8 @@ import Notification from "@components/Notification";
 import AuthSession from "@components/AuthSession";
 
 const inter = Inter({ subsets: ["latin"] });
+// export const revalidate = 0;
+// export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Ma Boutique",

@@ -7,6 +7,9 @@ import FeaturedProductsSlider from "@components/FeaturedProductsSlider";
 import FeaturedProductModel from "@models/featuredProduct";
 import CategoryMenu from "@components/CategoryMenu";
 
+export const revalidate = 0;
+// export const dynamic = "force-dynamic";
+
 interface LatestProduct {
   id: string;
   title: string;
