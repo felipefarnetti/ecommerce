@@ -20,7 +20,7 @@ export const POST = async (req: Request) => {
       );
 
     const data = await req.json();
-    console.log("data==========", data);
+    // console.log("data==========", data);
 
     const productId = data.productId as string;
     console.log("data==========", productId);
@@ -81,7 +81,7 @@ export const POST = async (req: Request) => {
       shipping_address_collection: { allowed_countries: ["FR"] },
       customer: customer.id,
     };
-    console.log("params============", params);
+    // console.log("params============", params);
 
     const checkoutSession = await stripe.checkout.sessions.create(params);
     console.log("Checkout Session:", checkoutSession);

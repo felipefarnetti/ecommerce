@@ -7,6 +7,22 @@ import { useParams, useRouter } from "next/navigation";
 import useAuth from "@hooks/useAuth";
 import { toast } from "react-toastify";
 
+interface Props {
+  product: {
+    id: string;
+    title: string;
+    description: string;
+    category: string;
+    thumbnail: string;
+    rating?: number;
+    sale: number;
+    price: {
+      base: number;
+      discounted: number;
+    };
+  };
+}
+
 export default function BuyingOptions() {
   const [quantity, setQuantity] = useState(1);
   const [isPending, startTransition] = useTransition();
@@ -40,6 +56,20 @@ export default function BuyingOptions() {
     router.refresh();
   };
 
+  const handleCheckout = async () => {
+    const res = await fetch("/api/checkout/instant", {
+      method: "POST",
+      body: JSON.stringify({ productId }),
+    });
+    const { error, url } = await res.json();
+    if (!res.ok) {
+      toast.error(error);
+    } else {
+      // open the checkout url
+      window.location.href = url;
+    }
+  };
+
   return (
     <div className="flex items-center space-x-2">
       <CartCountUpdater
@@ -57,7 +87,16 @@ export default function BuyingOptions() {
       >
         Add to Cart
       </Button>
-      <Button disabled={isPending} color="amber" className="rounded-full">
+      <Button
+        disabled={isPending}
+        ripple={false}
+        fullWidth={true}
+        onClick={() => {
+          startTransition(async () => await handleCheckout());
+        }}
+        className="rounded-full"
+        color="amber"
+      >
         Buy Now
       </Button>
     </div>
