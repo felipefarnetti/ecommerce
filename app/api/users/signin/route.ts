@@ -12,7 +12,12 @@ export const POST = async (req: Request) => {
     });
 
   await startDb();
-  const user = await UserModel.findOne({ email });
+
+  // Convert the provided email to lowercase (or uppercase)
+  const lowerCaseEmail = email.toLowerCase();
+
+  // Find the user using the lowercase email
+  const user = await UserModel.findOne({ email: lowerCaseEmail });
   if (!user)
     return NextResponse.json({
       error: "Email or password mismatch!",

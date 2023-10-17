@@ -5,8 +5,11 @@ import { ObjectId, isValidObjectId } from "mongoose";
 import { redirect } from "next/navigation";
 import React from "react";
 import Link from "next/link";
-import ReviewModel from "@/app/models/reviewModel";
-import ReviewsList from "@/app/components/ReviewsList";
+import ReviewModel from "@models/reviewModel";
+import ReviewsList from "@components/ReviewsList";
+import SimilarProductsList from "@components/SimilarProductsList";
+import { updateOrCreateHistory } from "@models/historyModel";
+import { auth } from "@/auth";
 
 interface Props {
   params: {
@@ -21,6 +24,10 @@ const fetchProduct = async (productId: string) => {
   const product = await ProductModel.findById(productId);
   if (!product) return redirect("/404");
 
+  const session = await auth();
+  if (session?.user)
+    await updateOrCreateHistory(session.user.id, product._id.toString());
+
   return JSON.stringify({
     id: product._id.toString(),
     title: product.title,
@@ -31,6 +38,7 @@ const fetchProduct = async (productId: string) => {
     price: product.price,
     sale: product.sale,
     rating: product.rating,
+    outOfStock: product.quantity <= 0,
   });
 };
 
@@ -59,6 +67,19 @@ const fetchProductReviews = async (productId: string) => {
   return JSON.stringify(result);
 };
 
+const fetchSimilarProducts = async () => {
+  await startDb();
+  const products = await ProductModel.find().sort({ rating: -1 }).limit(10);
+  return products.map(({ _id, thumbnail, title, price }) => {
+    return {
+      id: _id.toString(),
+      title,
+      thumbnail: thumbnail.url,
+      price: price.discounted,
+    };
+  });
+};
+
 export default async function Product({ params }: Props) {
   const { product } = params;
   const productId = product[1];
@@ -69,6 +90,7 @@ export default async function Product({ params }: Props) {
   }
 
   const reviews = await fetchProductReviews(productId);
+  const similarProducts = await fetchSimilarProducts();
 
   return (
     <div className="p-4">
@@ -80,7 +102,10 @@ export default async function Product({ params }: Props) {
         points={productInfo.bulletPoints}
         images={productImages}
         rating={productInfo.rating}
+        outOfStock={productInfo.outOfStock}
       />
+
+      <SimilarProductsList products={similarProducts} />
 
       <div className="py-4 space-y-4">
         <div className="flex justify-between items-center">
