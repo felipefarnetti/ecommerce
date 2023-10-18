@@ -10,7 +10,16 @@ export default function CategoryMenu() {
     <HorizontalMenu>
       {categories.map((c) => (
         <Link key={c} href={`/browse-products/${c}`}>
-          <Chip color="teal" className="mr-2" variant="outlined" value={c} />
+          <Chip
+            color="teal"
+            className="mr-2"
+            variant="outlined"
+            value={c}
+            style={{
+              fontSize: "11px",
+              fontWeight: "bold",
+            }}
+          />
         </Link>
       ))}
     </HorizontalMenu>

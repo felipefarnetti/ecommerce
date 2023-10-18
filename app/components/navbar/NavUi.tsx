@@ -55,7 +55,7 @@ export default function NavUI({ cartItemsCount, avatar }: Props) {
 
   return (
     <>
-      <MaterialNav className="mx-auto max-w-screen-xl px-4 py-4 mb-4 bg-gradient-to-r from-blue-200 to-red-300">
+      <MaterialNav className="mx-auto max-w-screen-xl px-4 py-4 mb-4 bg-gradient-to-r from-blue-300 to-pink-100">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Link
             href="/"
