@@ -35,7 +35,15 @@ export default function ReviewForm({ productId, initialValue }: Props) {
     setIsPending(false);
     if (!res.ok) {
       return toast.error(error);
+    } else {
+      toast.success("Review submitted successfully");
+      // Reload the page after a successful submission
+      window.location.reload();
     }
+  };
+
+  const goBack = () => {
+    window.history.back(); // Go back to the previous page
   };
 
   useEffect(() => {
@@ -69,6 +77,9 @@ export default function ReviewForm({ productId, initialValue }: Props) {
       <div className="text-right">
         <Button disabled={isPending} type="submit">
           Submit
+        </Button>
+        <Button className="ml-2 bg-yellow-600 text-black" onClick={goBack}>
+          Go Back
         </Button>
       </div>
     </form>
