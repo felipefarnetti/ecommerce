@@ -12,6 +12,7 @@ import {
   XMarkIcon,
   UserCircleIcon,
   ShoppingBagIcon,
+  HeartIcon,
 } from "@heroicons/react/24/outline";
 import ProfileMenu from "../ProfileMenu";
 import { MobileNav } from "../MobileNav";
@@ -34,6 +35,11 @@ export const menuItems = [
     href: "/profile/orders",
     icon: <ShoppingBagIcon className="h-4 w-4" />,
     label: "Orders",
+  },
+  {
+    href: "/profile/wishlist",
+    icon: <HeartIcon className="h-4 w-4" />,
+    label: "Wishlist",
   },
 ];
 

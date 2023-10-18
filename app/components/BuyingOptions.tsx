@@ -6,24 +6,13 @@ import CartCountUpdater from "@components/CartCountUpdater";
 import { useParams, useRouter } from "next/navigation";
 import useAuth from "@hooks/useAuth";
 import { toast } from "react-toastify";
+import Wishlist from "@ui/Wishlist";
 
 interface Props {
-  product: {
-    id: string;
-    title: string;
-    description: string;
-    category: string;
-    thumbnail: string;
-    rating?: number;
-    sale: number;
-    price: {
-      base: number;
-      discounted: number;
-    };
-  };
+  wishlist?: boolean;
 }
 
-export default function BuyingOptions() {
+export default function BuyingOptions({ wishlist }: Props) {
   const [quantity, setQuantity] = useState(1);
   const [isPending, startTransition] = useTransition();
   const { product } = useParams();
@@ -70,6 +59,22 @@ export default function BuyingOptions() {
     }
   };
 
+  const updateWishlist = async () => {
+    if (!productId) return;
+
+    if (!loggedIn) return router.push("/auth/signin");
+
+    const res = await fetch("/api/product/wishlist", {
+      method: "POST",
+      body: JSON.stringify({ productId }),
+    });
+
+    const { error } = await res.json();
+    if (!res.ok && error) toast.error(error);
+
+    router.refresh();
+  };
+
   return (
     <div className="flex items-center space-x-2">
       <CartCountUpdater
@@ -98,6 +103,16 @@ export default function BuyingOptions() {
         color="amber"
       >
         Buy Now
+      </Button>
+
+      <Button
+        onClick={() => {
+          startTransition(async () => await updateWishlist());
+        }}
+        variant="text"
+        disabled={isPending}
+      >
+        <Wishlist isActive={wishlist} />
       </Button>
     </div>
   );
