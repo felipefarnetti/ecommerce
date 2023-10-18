@@ -21,7 +21,7 @@ export const POST = async (req: Request) => {
 
     const data = await req.json();
     const cartId = data.cartId as string;
-    console.log("data=======", data);
+    // console.log("data=======", data);
 
     if (!isValidObjectId(cartId))
       return NextResponse.json(
@@ -54,7 +54,7 @@ export const POST = async (req: Request) => {
         quantity: product.qty,
       };
     });
-    console.log("line_items=======", line_items);
+    // console.log("line_items=======", line_items);
 
     const customer = await stripe.customers.create({
       metadata: {
@@ -75,11 +75,11 @@ export const POST = async (req: Request) => {
       customer: customer.id,
     };
 
-    console.log("params=======", params);
+    // console.log("params=======", params);
 
     const checkoutSession = await stripe.checkout.sessions.create(params);
 
-    console.log("checkoutsession=======", checkoutSession);
+    // console.log("checkoutsession=======", checkoutSession);
 
     return NextResponse.json({ url: checkoutSession.url });
   } catch (error) {
