@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Notification from "@components/Notification";
 import AuthSession from "@components/AuthSession";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 // export const revalidate = 0;
@@ -27,6 +28,7 @@ export default function RootLayout({
           suppressHydrationWarning={true}
         >
           {children}
+          <Analytics />
           <Notification />
         </body>
       </html>
