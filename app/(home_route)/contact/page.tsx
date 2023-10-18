@@ -1,8 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const router = useRouter();
+
   async function handleSubmit(event: any) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -26,6 +35,17 @@ export default function Contact() {
     }
   }
 
+  function clearForm() {
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
+
+    // Redirect to the current page to clear the form state
+    router.refresh();
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center">
       <div className="relative flex place-items-center p-5 bg-white text-black">
@@ -44,7 +64,11 @@ export default function Contact() {
             maxLength={50}
             size={50}
             name="name"
-            className="text-black"
+            value={formData.name}
+            onChange={(event) =>
+              setFormData({ ...formData, name: event.target.value })
+            }
+            className="text-black bg-gray-300 rounded-lg p-2"
           />
 
           <label htmlFor="form-email"> Email:</label>
@@ -55,7 +79,11 @@ export default function Contact() {
             maxLength={80}
             name="email"
             type="email"
-            className="text-black"
+            value={formData.email}
+            onChange={(event) =>
+              setFormData({ ...formData, email: event.target.value })
+            }
+            className="text-black bg-gray-300 rounded-lg p-2"
           />
 
           <label htmlFor="form-message"> Message: </label>
@@ -64,12 +92,25 @@ export default function Contact() {
             required
             name="message"
             rows={5}
-            className="text-black"
+            value={formData.message}
+            onChange={(event) =>
+              setFormData({ ...formData, message: event.target.value })
+            }
+            className="text-black bg-gray-300 rounded-lg p-2"
           />
         </div>
-        <button className=" rounded bg-sky-400" type="submit">
-          Send
-        </button>
+        <div className="flex justify-between">
+          <button className=" rounded bg-sky-400 p-2" type="submit">
+            Send
+          </button>
+          <button
+            className=" rounded bg-gray-500 p-2"
+            type="button"
+            onClick={clearForm}
+          >
+            Clear
+          </button>
+        </div>
       </form>
     </main>
   );

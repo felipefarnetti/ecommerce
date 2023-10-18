@@ -21,7 +21,7 @@ export default function Footer() {
           </Link>
           |
           <Link className="text-sm ml-4 md:text-lg" href="/selling-conditions">
-            Selling Conditions for France
+            Selling Conditions
           </Link>
         </p>
         <p className="text-sm" style={{ marginBottom: 5 }}>

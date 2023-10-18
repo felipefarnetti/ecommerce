@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Navbar as MaterialNav,
   IconButton,
@@ -44,10 +44,10 @@ export const menuItems = [
 ];
 
 export default function NavUI({ cartItemsCount, avatar }: Props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const { loading, loggedIn } = useAuth();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const onResize = () => window.innerWidth >= 960 && setOpen(false);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
