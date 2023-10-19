@@ -10,7 +10,8 @@ export async function POST(request: NextRequest) {
   const host = process.env.HOST_EMAIL;
   const port = process.env.PORT_EMAIL;
 
-  console.log("dealing with request");
+  // console.log("dealing with request");
+
   const formData = await request.formData();
   const name = formData.get("name");
   const email = formData.get("email");

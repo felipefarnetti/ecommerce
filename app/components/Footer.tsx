@@ -40,8 +40,8 @@ export default function Footer() {
               icon={faCcAmex}
             />
           </span>
-          <p> Shipping within 48 hours</p>
         </p>
+        <p> Shipping within 48 hours</p>
       </div>
     </div>
   );

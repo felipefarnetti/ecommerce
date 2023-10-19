@@ -21,7 +21,7 @@ const fetchLastestOrders = async () => {
     .sort("-createdAt")
     .limit(3);
   const result: Orders[] = orders.map((order) => {
-    console.log(order);
+    // console.log(order);
     return {
       id: order._id.toString(),
       paymentStatus: order.paymentStatus,

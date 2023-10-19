@@ -67,7 +67,7 @@ const AdminSidebar = ({ children }: Props) => {
           </li>
           <li>
             <SignOutButton>
-              <div>Logout</div>
+              <div className="cursor-pointer">Logout</div>
             </SignOutButton>
           </li>
           <li>

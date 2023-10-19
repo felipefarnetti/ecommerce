@@ -17,7 +17,7 @@ const fetchOrders = async () => {
     "-createdAt"
   );
   const result: Orders[] = orders.map((order) => {
-    console.log(order);
+    // console.log(order);
     return {
       id: order._id.toString(),
       paymentStatus: order.paymentStatus,

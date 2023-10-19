@@ -12,7 +12,7 @@ export const UpdateUserProfile = async (info: UserProfileToUpdate) => {
       avatar: info.avatar,
     });
   } catch (error) {
-    console.log("Error while updating the user");
+    // console.log("Error while updating the user");
 
     throw error;
   }

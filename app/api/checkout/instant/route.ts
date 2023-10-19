@@ -23,7 +23,7 @@ export const POST = async (req: Request) => {
     // console.log("data==========", data);
 
     const productId = data.productId as string;
-    console.log("data==========", productId);
+    // console.log("data==========", productId);
 
     if (!isValidObjectId(productId))
       return NextResponse.json(
@@ -69,7 +69,7 @@ export const POST = async (req: Request) => {
         }),
       },
     });
-    console.log("custommer========", customer);
+    // console.log("custommer========", customer);
 
     // we need to generate payment link and send to our frontend app
     const params: Stripe.Checkout.SessionCreateParams = {
@@ -84,7 +84,7 @@ export const POST = async (req: Request) => {
     // console.log("params============", params);
 
     const checkoutSession = await stripe.checkout.sessions.create(params);
-    console.log("Checkout Session:", checkoutSession);
+    // console.log("Checkout Session:", checkoutSession);
     return NextResponse.json({ url: checkoutSession.url });
   } catch (error) {
     return NextResponse.json(
