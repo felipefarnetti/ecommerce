@@ -9,7 +9,7 @@ interface Props {
 
 export default async function AdminLayout({ children }: Props) {
   const session = await auth();
-  const user = session?.user; //Verifier SI INTERROGATION NECESSAIRE
+  const user = session.user; //Verifier SI INTERROGATION NECESSAIRE
   const isAdmin = user?.role === "admin";
 
   if (!isAdmin) return redirect("/auth/signin");
