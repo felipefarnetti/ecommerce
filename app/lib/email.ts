@@ -10,7 +10,7 @@ const client = new MailtrapClient({ endpoint: ENDPOINT, token: TOKEN });
 
 const sender = {
   email: "nextecom@farnetti.fr",
-  name: "Next Ecom Verification",
+  name: "My shop name",
 };
 
 interface EmailOptions {
