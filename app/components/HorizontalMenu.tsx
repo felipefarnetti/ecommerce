@@ -9,7 +9,7 @@ export function LeftArrow() {
 
   return (
     <button
-      className="px-2 transition"
+      className="px-1 transition"
       disabled={isFirstItemVisible}
       style={{ opacity: isFirstItemVisible ? "0" : "1" }}
       onClick={() => scrollPrev()}
@@ -24,7 +24,7 @@ export function RightArrow() {
 
   return (
     <button
-      className="px-2 transition"
+      className="px-1 transition"
       style={{ opacity: isLastItemVisible ? "0" : "1" }}
       disabled={isLastItemVisible}
       onClick={() => scrollNext()}

@@ -22,13 +22,13 @@ export default function SimilarProductsList({ products }: Props) {
         {products.map((product) => {
           return (
             <Link href={`/${product.title}/${product.id}`} key={product.id}>
-              <div className="w-[200px] space-y-2 mr-4">
+              <div className="w-[150px] space-y-2 mr-2">
                 <Image
-                  width={200}
-                  height={200}
+                  width={150}
+                  height={150}
                   src={product.thumbnail}
                   alt={product.title}
-                  className="rounded"
+                  className="rounded h-24 w-24"
                 />
                 <div>
                   <h2 className="text-sm line-clamp-3">{product.title}</h2>

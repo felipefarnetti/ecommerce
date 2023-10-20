@@ -9,7 +9,7 @@ const ENDPOINT = process.env.MAILTRAP_ENDPOINT!;
 const client = new MailtrapClient({ endpoint: ENDPOINT, token: TOKEN });
 
 const sender = {
-  email: "nextecom@farnetti.fr",
+  email: "admin@farnetti.fr",
   name: "My shop name",
 };
 

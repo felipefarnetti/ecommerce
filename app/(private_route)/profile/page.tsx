@@ -58,8 +58,8 @@ export default async function Profile() {
   return (
     <div>
       <EmailVerificationBanner verified={profile.verified} id={profile.id} />
-      <div className="flex py-4 space-y-4">
-        <div className="border-r border-gray-700 p-4 space-y-4">
+      <div className="flex py-4 space-y-4 flex-col md:flex-row">
+        <div className="p-4 space-y-4">
           <ProfileForm
             id={profile.id}
             email={profile.email}
@@ -73,7 +73,10 @@ export default async function Profile() {
             <h1 className="text-2xl font-semibold uppercase opacity-70 mb-4">
               Your recent orders
             </h1>
-            <Link href="/profile/orders" className="uppercase hover:underline">
+            <Link
+              href="/profile/orders"
+              className="uppercase hover:underline text-center bg-blue-gray-100 border border-blue-gray-400 rounded p-1"
+            >
               See all orders
             </Link>
           </div>
