@@ -17,7 +17,7 @@ const fetchFeaturedProduct = async (id: string) => {
 
   const { _id, title, banner, link, linkTitle } = product;
   return {
-    id: product._id.toString(),
+    id: _id.toString(),
     title,
     banner: banner.url,
     link,

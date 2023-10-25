@@ -29,14 +29,27 @@ export async function POST(request: NextRequest) {
 
   try {
     const mail = await transporter.sendMail({
-      from: username,
-      to: myEmail,
+      from: myEmail,
+      to: email,
       replyTo: email,
       subject: `Website activity from ${email}`,
       html: `
-            <p>Name: ${name} </p>
-            <p>Email: ${email} </p>
-            <p>Message: ${message} </p>
+      <table style="width: 100%; border-collapse: collapse;">
+      <tbody>
+        <tr>
+          <td style="width: 20%; padding: 5px; border: 1px solid #ccc;">Nom :</td>
+          <td style="width: 80%; padding: 5px; border: 1px solid #ccc;">${name}</td>
+        </tr>
+        <tr>
+          <td style="width: 20%; padding: 5px; border: 1px solid #ccc;">Email :</td>
+          <td style="width: 80%; padding: 5px; border: 1px solid #ccc;">${email}</td>
+        </tr>
+        <tr>
+          <td style="width: 20%; padding: 5px; border: 1px solid #ccc;">Message :</td>
+          <td style="width: 80%; padding: 5px; border: 1px solid #ccc;">${message}</td>
+        </tr>
+      </tbody>
+    </table>
             `,
     });
 

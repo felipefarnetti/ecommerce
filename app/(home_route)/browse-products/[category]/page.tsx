@@ -61,7 +61,7 @@ export default async function ProductByCategory({ params }: Props) {
           })}
         </GridView>
       ) : (
-        <h1 className="text-center pt-10 font-semibold text-2xl opacity-40">
+        <h1 className="text-center pt-8 pb-10 font-semibold text-2xl opacity-40">
           Sorry there are no products in this category!
         </h1>
       )}
