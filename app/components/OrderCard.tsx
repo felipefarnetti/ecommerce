@@ -4,6 +4,7 @@ import { Avatar, Option, Select } from "@material-tailwind/react";
 import Image from "next/image";
 import React, { useTransition } from "react";
 import { formatPrice } from "@utils/helper";
+import { format } from "date-fns";
 
 type product = {
   id: string;
@@ -26,6 +27,7 @@ export interface Order {
   subTotal: number;
   products: product[];
   deliveryStatus: string;
+  createdAt: Date;
 }
 
 interface Props {
@@ -76,6 +78,11 @@ const formatAddress = ({
 
 export default function OrderCard({ order, disableUpdate = true }: Props) {
   const [isPending, startTransition] = useTransition();
+  // Parse the createdAt date string into a Date object
+  const createdAtDate = new Date(order.createdAt);
+  // Format the parsed date in the desired format (French format)
+  const formattedDate = format(createdAtDate, "d - MMMM - yyyy");
+
   return (
     <div className="space-y-4 rounded border-blue-gray-800 border border-dashed p-2">
       <div className="flex justify-between">
@@ -84,6 +91,7 @@ export default function OrderCard({ order, disableUpdate = true }: Props) {
           <div>
             <p className="font-semibold">{order.customer.name}</p>
             <p className="text-sm">{order.customer.email}</p>
+            <p className="font-semibold">Date: {formattedDate}</p>
           </div>
         </div>
 

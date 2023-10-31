@@ -67,7 +67,7 @@ const AdminSidebar = ({ children }: Props) => {
           </li>
           <li>
             <SignOutButton>
-              <div className="cursor-pointer">Logout</div>
+              <div className="cursor-pointer text)-white mb-2 ml-1">Logout</div>
             </SignOutButton>
           </li>
           <li>

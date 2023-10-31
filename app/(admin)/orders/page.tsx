@@ -13,6 +13,7 @@ const fetchOrders = async () => {
       name: string;
       email: string;
       avatar?: { url: string };
+      createdAt: Date;
     };
   }>({
     path: "userId",
@@ -24,6 +25,7 @@ const fetchOrders = async () => {
       id: order._id.toString(),
       deliveryStatus: order.deliveryStatus,
       subTotal: order.totalAmount,
+      createdAt: order.createdAt,
       customer: {
         id: order.userId._id.toString(),
         name: order.userId.name,
