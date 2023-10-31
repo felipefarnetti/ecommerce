@@ -83,9 +83,11 @@ export default function ProductCard({ product }: Props) {
             sizes="none"
             priority
           />
-          <div className="absolute right-0 p-2">
-            <Chip color="red" value={`${product.sale}% off`} />
-          </div>
+          {product.price.base !== product.price.discounted && (
+            <div className="absolute right-0 p-2">
+              <Chip color="red" value={`${product.sale}% off`} />
+            </div>
+          )}
         </CardHeader>
         <CardBody>
           <div className="mb-2">
@@ -99,12 +101,20 @@ export default function ProductCard({ product }: Props) {
             </div>
           </div>
           <div className="flex justify-end items-center space-x-2 mb-2">
-            <Typography color="blue-gray" className="font-medium line-through">
-              ${formatPrice(product.price.base)}
-            </Typography>
-            <Typography color="blue-gray" className="font-medium">
-              ${formatPrice(product.price.discounted)}
-            </Typography>
+            {product.price.base === product.price.discounted ? (
+              <Typography color="blue-gray" className="font-medium">
+                ${formatPrice(product.price.discounted)}
+              </Typography>
+            ) : (
+              <>
+                <Typography color="blue-gray" className="text-sm line-through">
+                  ${formatPrice(product.price.base)}
+                </Typography>
+                <Typography color="blue-gray" className="font-medium">
+                  ${formatPrice(product.price.discounted)}
+                </Typography>
+              </>
+            )}
           </div>
           <p className="font-normal text-sm opacity-75 line-clamp-3">
             {truncate(product.description, 45)}
