@@ -47,13 +47,26 @@ export default function ProductView({
         {rating ? <Rating value={parseFloat(rating.toFixed(1))} /> : null}
 
         <div className="flex items-center space-x-2 mb-2">
-          <p className="line-through text-xl">{formatPrice(price.base)}</p>
-          <p className="font-semibold text-xl">
-            {formatPrice(price.discounted)}
+          <p
+            className={
+              price.base !== price.discounted
+                ? "line-through text-xl"
+                : "text-xl"
+            }
+          >
+            {formatPrice(price.base)}
           </p>
-          <p className="font-bold uppercase whitespace-nowrap select-none bg-red-500 text-white py-1.5 px-3 text-xs rounded-lg">
-            {`${sale}% off`}
+          <p className="text-xl">
+            {price.base !== price.discounted
+              ? formatPrice(price.discounted)
+              : null}
           </p>
+
+          {price.base !== price.discounted ? (
+            <p className="font-bold uppercase whitespace-nowrap select-none bg-red-500 text-white py-1.5 px-3 text-xs rounded-lg">
+              {`${sale}% off`}
+            </p>
+          ) : null}
         </div>
 
         <div className="flex py-4">

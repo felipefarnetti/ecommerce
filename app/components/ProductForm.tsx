@@ -122,7 +122,7 @@ export default function ProductForm(props: Props) {
       setProductImagesSource(initialValue.images);
       setIsForUpdate(true);
     }
-  }, []);
+  }, [initialValue]);
 
   const onImagesChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const files = target.files;
