@@ -103,15 +103,15 @@ export default function ProductCard({ product }: Props) {
           <div className="flex justify-end items-center space-x-2 mb-2">
             {product.price.base === product.price.discounted ? (
               <Typography color="blue-gray" className="font-medium">
-                ${formatPrice(product.price.discounted)}
+                {formatPrice(product.price.discounted)}
               </Typography>
             ) : (
               <>
                 <Typography color="blue-gray" className="text-sm line-through">
-                  ${formatPrice(product.price.base)}
+                  {formatPrice(product.price.base)}
                 </Typography>
                 <Typography color="blue-gray" className="font-medium">
-                  ${formatPrice(product.price.discounted)}
+                  {formatPrice(product.price.discounted)}
                 </Typography>
               </>
             )}
